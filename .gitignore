@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Environment Variables
+.env
+
+# Local Database (Store pending results locally)
+src/database/*.db
+src/database/*.db-journal
+
+# Logs (Audit Trails)
+logs/
+*.log
+npm-debug.log*
+
+# System
+.DS_Store
+Thumbs.db
