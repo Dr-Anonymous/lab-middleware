@@ -3,6 +3,7 @@ const { startUploader } = require('./services/uploader');
 const logger = require('./utils/logger');
 const express = require('express');
 const { getDb } = require('./database/db');
+const _ = require('underscore');
 require('dotenv').config();
 
 logger.info("--- LAB MIDDLEWARE STARTING ---");
@@ -78,7 +79,7 @@ app.get('/', (req, res) => {
                                 <td>${r.id}</td>
                                 <td>${r.created_at}</td>
                                 <td class="status-${r.status}">${r.status} ${r.retries > 0 ? `(Retry ${r.retries})` : ''}</td>
-                                <td>${r.payload ? r.payload.substring(0, 50) + '...' : ''}</td>
+                                <td>${r.payload ? _.escape(r.payload.substring(0, 50)) + '...' : ''}</td>
                             </tr>
                         `).join('')}
                     </tbody>

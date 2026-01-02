@@ -115,8 +115,19 @@ class ASTMParser {
                 // Field 3: Value
                 // Field 4: Unit
 
-                const testStr = rec.fields[2];
-                const testCode = testStr.includes('^') ? testStr.split('^')[3] : testStr; // Usually ^^^Code
+                const testStr = rec.fields[2] || '';
+                let testCode = testStr;
+
+                if (testStr.includes('^')) {
+                    const parts = testStr.split('^');
+                    // Universal Service ID usually at index 3 (^^^Code)
+                    if (parts.length >= 4 && parts[3]) {
+                        testCode = parts[3];
+                    } else if (parts[0]) {
+                        // Fallback to first component if index 3 is empty
+                        testCode = parts[0];
+                    }
+                }
 
                 const value = rec.fields[3];
                 const unit = rec.fields[4];
